@@ -41,3 +41,13 @@ Route::get('/categories', 'FrontendController@categories');
 
 Route::get('/categories/detail/{id}', 'FrontendController@detail');
 
+Route::get('/getitem/{subcategoryid}', 'FrontendController@getitem');
+
+Route::get('/items','FrontendController@items');
+
+Route::get('/items/detail/{id}','FrontendController@itemdetail');
+
+Route::get('/getlogin','FrontendController@getlogin');
+
+Route::get('/cart','FrontendController@cart');
+

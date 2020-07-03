@@ -83,7 +83,7 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item px-3">
-            <a class="nav-link" href="/">Home </a>
+            <a class="nav-link" href="{{ url('/')}}">Home </a>
           </li>
 
           <!-- Category -->
@@ -107,7 +107,7 @@
           <!-- End Category -->
 
           <li class="nav-item px-3">
-            <a class="nav-link" href=""> Promotion</a>
+            <a class="nav-link" href="{{ url('/items')}}">Items</a>
           </li>
           
           <li class="nav-item dropdown px-3">
@@ -150,9 +150,9 @@
           </li>
 
           <li class="nav-item px-3">
-            <a class="nav-link" href="cart"> 
+            <a class="nav-link" href="{{ url('/cart')}}"> 
               <i class="fas fa-shopping-cart"></i>
-              <span class="badge badge-pill badge-light badge-notify cartnoti">  </span>
+              <span class="badge badge-pill badge-light badge-notify cartnoti"></span>
               My Cart 
             </a>
           </li>

@@ -11,11 +11,11 @@
 
 	<ol class="breadcrumb">
 		<li class="breadcrumb-item">
-			<a href="index">Home</a>
+			<a href="{{ url('/')}}">Home</a>
 		</li>
 
 		<li class="breadcrumb-item">
-			<a href="categories"> Category </a>
+			<a href="{{ url('/categories')}}"> Category </a>
 		</li>
 
 		<li class="breadcrumb-item active">{{$category->name}}</li>
@@ -26,7 +26,7 @@
 		<div class="col-lg-3 mb-4">
 			<div class="list-group">
 				@foreach ($category->subcategories as $subcat)
-				<a href="javascript:void(0)" class="listgroup list-group-item " data-id="" id="subcategoryList">{{$subcat->name}}</a>
+				<a href="javascript:void(0)" class="listgroup_{{$subcat->id}} list-group-item" data-id="{{$subcat->id}}" id="subcategoryList">{{$subcat->name}}</a>
 				@endforeach
 			</div>
 		</div>
