@@ -40,10 +40,12 @@ $(document).ready(function() {
 						// console.log(sts);
 					});
 				$.each(item, function(i, v) {
-					// console.log(v);
+					console.log(v.id);
+					var url = `{{ url("/items/detail/${v.id}")}}`;
+
 					html += `<div class="col-lg-4 col-md-4 col-sm-6 portfolio-item">
 										<div class="card h-100">
-										<a href="#">
+										<a href='/items/detail/${v.id}'>
 						                	<img class="card-img-top" src="${v.photo}" alt="" style="height: 200px;object-fit:cover;">
 						                </a>
 									
@@ -175,11 +177,11 @@ $(document).ready(function() {
 	function showTable(){
 		var localstorageitem=localStorage.getItem('cart');
 		var localstorageitem=JSON.parse(localstorageitem);
-		var mycart=localstorageitem.mycart;
+		
 
-		if(mycart.length > 0){
+		if(localstorageitem){
 
-			
+			var mycart=localstorageitem.mycart;
 			var mytable='';
 			var total=0;
 			$.each(mycart,function(i,v){
@@ -250,7 +252,7 @@ $(document).ready(function() {
 						</tr>
 						<tr>
 							<td colspan="5">
-								<textarea class="form-control" id="notes"></textarea>
+								<textarea class="form-control" id="address" required="" placeholder="Enter Your Address Here!"></textarea>
 							</td>
 							<td colspan="3">
 								<button class="btn btn-secondary btn-block checkoutbtn" data-total="${total}"
@@ -368,4 +370,33 @@ $(document).ready(function() {
 			cartnoti();
 		}
 	});
+
+	$('#shoppingcart_tfoot').on('click','.checkoutbtn',function(){
+		var address=$('#address').val();
+		var total=$(this).data('total');
+		var cart=localStorage.getItem('cart');
+		var cartobj=JSON.parse(cart);
+		var cartarr=cartobj.mycart;
+		// console.log(address);
+		// console.log(total);
+		// console.log(cartarr);
+		$.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+		$.post('/backend/order/',{
+			cart:cartarr,
+			address:address,
+			total:total
+		},function(response){
+			// storage clear
+			localStorage.clear();
+			console.log(response);
+			alert('Your Order has been replaced!');
+			location.href = '/orders';
+		});
+		// console.log(total);
+		// console.log(note);
+	})
 });

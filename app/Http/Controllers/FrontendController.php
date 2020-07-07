@@ -7,6 +7,8 @@ use App\Item;
 use App\Category;
 use App\Subcategory;
 use Illuminate\Support\Facades\Auth;
+use App\Order;
+use App\Orderdetail;
 
 class FrontendController extends Controller
 {
@@ -65,6 +67,15 @@ class FrontendController extends Controller
     public function itemdetail($id)
     {
         $item = Item::find($id);
-        return view('frontend.item.detail',compact('item'));
+        $subcategory = $item->subcategory;
+        $items = Item::latest()->paginate(4);
+        $category = $subcategory->category;
+        // dd($category->name);
+        return view('frontend.item.detail',compact('item','items','subcategory','category'));
+    }
+
+    public function orders()
+    {
+        return view('frontend.order.index');
     }
 }

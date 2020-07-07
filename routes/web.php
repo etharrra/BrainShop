@@ -51,3 +51,9 @@ Route::get('/getlogin','FrontendController@getlogin');
 
 Route::get('/cart','FrontendController@cart');
 
+Route::get('/orders','FrontendController@orders');
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

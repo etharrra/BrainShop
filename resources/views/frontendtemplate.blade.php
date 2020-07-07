@@ -8,6 +8,9 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
+  <!-- CSRF Token -->
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+
   <title>BRAINSHOP</title>
 
   <!-- Favicon -->
@@ -23,6 +26,9 @@
 
   <!-- Custom styles for this template -->
   <link href="{{ asset('frontend/css/modern-business.css')}}" rel="stylesheet">
+
+  <!-- include summernote css/js -->
+  <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 
   <style type="text/css">
 
@@ -62,6 +68,10 @@
     }
     #page-content{
       flex: 1 0 auto;
+    }
+    .note-editable {
+      padding: 30px !important;
+      background-color: white !important;
     }
 
   </style>
@@ -157,9 +167,10 @@
             </a>
           </li>
 
-          <!-- <li class="nav-item dropdown">
+          @auth
+          <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              John Doe
+             {{ Auth::user()->name }}
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
               <a class="dropdown-item py-2" href="">
@@ -186,21 +197,26 @@
               </a>
               <div class="dropdown-divider"></div>
 
-              <a class="dropdown-item" href="signout"> 
+              <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"> 
                 <i class="fas fa-sign-out-alt pr-3"></i>
                 Logout 
               </a>
-            </div>
-          </li> -->
 
+              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                {{ csrf_field() }}
+              </form>
+          </li>
+          @endauth
 
+          @guest
             <li class="nav-item px-3">
-              <a class="nav-link" href="">Login </a>
+              <a class="nav-link" href="{{ route('login') }}">Login </a>
             </li>
 
             <li class="nav-item px-3">
-              <a class="nav-link" href="">Sign Up</a>
+              <a class="nav-link" href="{{ route('register') }}">Sign Up</a>
             </li>
+          @endguest
 
 
           </ul>
@@ -324,6 +340,18 @@
     <script src="{{ asset('frontend/vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{ asset('frontend/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{ asset('frontend/custom.js')}}"></script>
+
+    <!-- Summer Note -->
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('.summernote').summernote({
+          airMode: true
+        });
+        $('.summernote').summernote('disable');
+      });
+    </script>
     
   </body>
 

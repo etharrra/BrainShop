@@ -1,3 +1,21 @@
+<?php  
+  $directoryURI = $_SERVER['REQUEST_URI'];
+  $path = parse_url($directoryURI, PHP_URL_PATH);
+  $components = explode('/', $path);
+  $count = count($components);
+  // var_dump($components);
+  // die();
+  if($count < 1) {
+    $route = $components[0];
+    // var_dump($route);
+    // die();
+  }
+  else {
+    $route = $components[1];
+    // var_dump($route);
+    // die();
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,6 +26,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
+  
+  <!-- CSRF Token -->
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <title></title>
 
@@ -45,7 +66,7 @@
       <hr class="sidebar-divider my-0">
 
       <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
+      <li class="nav-item @if($route == '') {{'active'}} @endif">
         <a class="nav-link" href="{{route('dashboard')}}">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
@@ -60,21 +81,21 @@
         </div>
 
         <!-- Nav Item - Charts -->
-        <li class="nav-item">
+        <li class="nav-item @if($route == 'order') {{'active'}} @endif">
           <a class="nav-link" href="{{route('dashboard')}}">
             <i class="fas fa-concierge-bell"></i>
             <span>Orders</span>
           </a>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item @if($route == 'delivery') {{'active'}} @endif">
           <a class="nav-link" href="{{route('dashboard')}}">
             <i class="fas fa-truck"></i>
             <span>Delivery</span>
           </a>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item @if($route == 'customer') {{'active'}} @endif">
           <a class="nav-link" href="{{route('dashboard')}}">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Customers</span>
@@ -90,7 +111,7 @@
         </div>
 
         <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
+        <li class="nav-item @if($route == 'item') {{'active'}} @endif">
           <a class="nav-link" href="{{route('item.index')}}">
             <i class="fas fa-dolly"></i>
             <span>Items</span>
@@ -98,7 +119,7 @@
         </li>
 
         <!-- Nav Item - Charts -->
-        <li class="nav-item">
+        <li class="nav-item @if($route == 'brand') {{'active'}} @endif">
           <a class="nav-link" href="{{route('brand.index')}}">
             <i class="fas fa-medal"></i>
             <span>Brands</span>
@@ -114,7 +135,7 @@
         </div>
 
         <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
+        <li class="nav-item @if($route == 'category') {{'active'}} @endif">
           <a class="nav-link" href="{{ route('category.index')}}">
             <i class="fas fa-tag"></i>
             <span>Category</span>
@@ -122,8 +143,8 @@
         </li>
 
         <!-- Nav Item - Charts -->
-        <li class="nav-item">
-          <a class="nav-link" href="{{ route('subcategory.index')}}">
+        <li class="nav-item @if($route == 'subcategory') {{'active'}} @endif">
+          <a class="nav-link " href="{{ route('subcategory.index')}}">
             <i class="fas fa-tags"></i>
             <span>Sub-Category</span>
           </a>
