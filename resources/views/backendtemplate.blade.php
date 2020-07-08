@@ -82,7 +82,7 @@
 
         <!-- Nav Item - Charts -->
         <li class="nav-item @if($route == 'order') {{'active'}} @endif">
-          <a class="nav-link" href="{{route('dashboard')}}">
+          <a class="nav-link" href="{{route('order.index')}}">
             <i class="fas fa-concierge-bell"></i>
             <span>Orders</span>
           </a>

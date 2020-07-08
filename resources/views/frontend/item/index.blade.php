@@ -33,14 +33,17 @@
 
 					<div class="card-footer bg-transparent">
 
+						@auth
 						<a href="javascript:void(0)" class="btn btn-secondary btn-block addtocart" data-id="{{$item->id}}" data-name="{{$item->name}}" data-codeno="{{$item->codeno}}" data-price="{{$item->price}}" data-discount="{{$item->discount}}" data-photo="{{$item->photo}}" style="background-color: #673AB7; border-color: #673AB7"> 	
 							<i class="fas fa-shopping-cart pr-3"></i> Add To Cart 
 						</a>
+						@endauth
 
+						@guest
 						<a href="login" class="btn btn-secondary btn-block" > 	
 							<i class="fas fa-shopping-cart pr-3"></i> Add To Cart 
 						</a>
-
+						@endguest
 
 					</div>
 

@@ -19,7 +19,6 @@
             <div class="container">
                 <div class="navbar-header">
 
-                    <img src="{{url('/img/brainlogo.png')}}" height="50" width="50">
                     
                     <!-- Collapsed Hamburger -->
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse" aria-expanded="false">
@@ -30,12 +29,9 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <img src="{{url('/img/brainlogo.png')}}" height="50" width="50">
-
                     <a class="navbar-brand" href="{{ url('/') }}">
                         {{ config('app.name', 'Laravel') }}
                     </a>
-                    <img src="{{url('/img/brainlogo.png')}}" height="50" width="50">
 
                 </div>
 

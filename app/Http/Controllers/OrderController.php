@@ -52,7 +52,7 @@ class OrderController extends Controller
         $status = "order";
 
         //User_id
-        $user_id = 1;
+        $user_id = auth()->user()->id;
 
          $validator = validator(request()->all(),[
             'cart' => 'required',

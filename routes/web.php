@@ -13,7 +13,7 @@
 
 Route::group([
 	//'name' => 'backend.',
-	// 'middleware' => 'role:Admin|Teacher',
+	'middleware' => 'role:admin',
 	'prefix' => 'backend'
 	//'namespace' => 'Backend'
 

@@ -1,5 +1,6 @@
 $(document).ready(function() {
 	// alert('Ok');
+	LoginStatus();
 	getSubcategoryId();
 	cartnoti();
 	showTable();
@@ -31,16 +32,12 @@ $(document).ready(function() {
 				// console.log(res);
 				var item = res.items;
 				console.log(item);
-				var sts = '';
 				var html = '';
 				if(item.length > 0){
-					$.get('/getlogin', 
-						function(res) {
-						sts = res;
-						// console.log(sts);
-					});
+					
 				$.each(item, function(i, v) {
-					console.log(v.id);
+					// console.log(v.id);
+					
 					var url = `{{ url("/items/detail/${v.id}")}}`;
 
 					html += `<div class="col-lg-4 col-md-4 col-sm-6 portfolio-item">
@@ -66,24 +63,29 @@ $(document).ready(function() {
 					   	html += `<h4 class="text-danger"> $ ${v.price} </h4>`;
 					}
 
-					html += `</div>
+					html += `</div><div class="card-footer bg-transparent">`;
 
-									<div class="card-footer bg-transparent">`;
-									// if (sts) {
-			                  		html+=`
-			                  		    <a href="javascript:void(0)" class="btn btn-secondary btn-block addtocart" data-id="${v.id}" data-name="${v.name}" data-photo="${v.photo}" data-codeno="${v.codeno}" data-price="${v.price}" data-discount="${v.discount}" style="background-color: #673AB7; border-color: #673AB7"> 
-			                    			<i class="fas fa-shopping-cart pr-3"></i> Add To Cart 
-			                  			</a>
-			                  			`;
-			                  		// } else {	
-			               			html+=`
-			               			    <a href="login" class="btn btn-secondary btn-block" data-toggle="tooltip" data-placement="top" title="If you want to order, you must need to be our member"">
-                                            <i class="fas fa-shopping-cart pr-3"></i> 
-                                            Add To Cart 
-                                        </a> `;
-                                    // }    
-						
-			               			html+=`</div> </div> </div>`; 
+					var lsts = localStorage.getItem('login_sts');
+
+					if(lsts) {
+
+              		html+=`
+              		    <a href="javascript:void(0)" class="btn btn-primary btn-block addtocart" data-id="${v.id}" data-name="${v.name}" data-photo="${v.photo}" data-codeno="${v.codeno}" data-price="${v.price}" data-discount="${v.discount}"> 
+                			<i class="fas fa-shopping-cart pr-3"></i> Add To Cart 
+              			</a>
+              			`;
+
+              		} else {
+
+           			html+=`
+           			    <a href="#" class="btn btn-secondary btn-block" style="background:red;">
+                            <i class="fas fa-shopping-cart pr-3"></i> 
+                            Add To Cart 
+                        </a> `;
+                        
+                    }    
+		
+           			html+=`</div> </div> </div>`; 
 				});
 			    }else{
 			       	html += `<h3> There is no item in our database. </h3>`;
@@ -307,7 +309,7 @@ $(document).ready(function() {
 					
 				 }
 
-			});
+	});
 
 	$("#shoppingcart_table").on('click', '.minus', 
 				function() {
@@ -346,7 +348,7 @@ $(document).ready(function() {
 						
 					}
 
-			});
+	});
 
 
 
@@ -399,4 +401,19 @@ $(document).ready(function() {
 		// console.log(total);
 		// console.log(note);
 	})
+
+	function LoginStatus() {
+		$.get('/getlogin', 
+			function(res) {
+			var sts = parseInt(res);
+			var lsts = localStorage.getItem('login_sts');
+			lsts = sts;
+			localStorage.setItem('login_sts', lsts);
+			console.log(sts);
+			if (lsts != true) {
+				localStorage.clear();
+			}
+		});
+		cartnoti();
+	}
 });
